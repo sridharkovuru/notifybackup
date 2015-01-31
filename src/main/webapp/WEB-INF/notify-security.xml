@@ -1,0 +1,40 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	<!-- <http pattern="/login.htm*" security="none"/>
+	enable use-expressions
+ 	<http pattern="/resources" security="none"></http>
+ 	<http pattern="/home" security="none"></http>
+
+ -->
+	<beans:bean id="http403EntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint">
+    </beans:bean>
+
+	<http disable-url-rewriting="true"  use-expressions="true">
+		 	<form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error" 
+			username-parameter="j_username"  password-parameter="j_password"  />
+		<logout logout-success-url="/logout" />
+	<!-- enable csrf protection -->
+		<csrf  />
+	</http>
+	<!-- <http>
+	
+		<form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error" 
+			username-parameter="j_username"  password-parameter="j_password"  />
+		<logout logout-success-url="/logout" />
+		<intercept-url pattern="/welcome" access="ROLE_USER,ROLE_MANAGER"/>
+	enable csrf protection
+		<csrf />
+	</http>
+ -->
+	<authentication-manager>
+ 		<authentication-provider user-service-ref="myUserService">
+ 		</authentication-provider>
+	</authentication-manager>
+
+ 	<beans:bean id="myUserService" class="com.notify.spring.security.customizations.MyUserServiceImpl" />
+
+</beans:beans>

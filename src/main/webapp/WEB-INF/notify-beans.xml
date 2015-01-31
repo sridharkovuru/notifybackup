@@ -1,0 +1,39 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        ">
+ 
+ <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<property name="host" value="smtp.gmail.com" />
+	<property name="port" value="587" />
+	<property name="username" value="testnotifymail@gmail.com" />
+	<property name="password" value="testnotifymail123" />
+ 
+	<property name="javaMailProperties">
+	   <props>
+       	      <prop key="mail.smtp.auth">true</prop>
+       	      <prop key="mail.smtp.starttls.enable">true</prop>
+       	   </props>
+	</property>
+</bean>
+<alias name="defaultB2BUserDao" alias="b2bUserDAO"/>
+<bean id="defaultB2BUserDao" class="com.notify.dao.DefaultB2BUserDAO" />
+
+<alias name="defaultB2BUserService" alias="b2bUserService"/>
+<bean id="defaultB2BUserService" class="com.notify.services.DefaultB2BUserService" />
+
+
+
+<alias name="defaultNotificationMailService" alias="notifyMailService"/>
+<bean id="defaultNotificationMailService" class="com.notify.services.DefaultNotifyMailService" />
+
+ 
+ </beans>
